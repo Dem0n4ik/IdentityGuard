@@ -1,0 +1,5084 @@
+{
+  "components": {
+    "schemas": {
+      "AHPReport": {
+        "properties": {
+          "ci": {
+            "title": "Ci",
+            "type": "number"
+          },
+          "consistent": {
+            "title": "Consistent",
+            "type": "boolean"
+          },
+          "cr": {
+            "title": "Cr",
+            "type": "number"
+          },
+          "eigenvalue": {
+            "title": "Eigenvalue",
+            "type": "number"
+          },
+          "inconsistent_pairs": {
+            "items": {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ],
+              "type": "array"
+            },
+            "title": "Inconsistent Pairs",
+            "type": "array"
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Weights",
+            "type": "object"
+          }
+        },
+        "required": [
+          "weights",
+          "eigenvalue",
+          "ci",
+          "cr",
+          "consistent",
+          "inconsistent_pairs"
+        ],
+        "title": "AHPReport",
+        "type": "object"
+      },
+      "AccessEdge": {
+        "properties": {
+          "actions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "can_assume",
+              "member_of",
+              "has_access",
+              "runs_as",
+              "can_escalate"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "target",
+          "kind"
+        ],
+        "title": "AccessEdge",
+        "type": "object"
+      },
+      "AccessNode": {
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "critical": {
+            "default": false,
+            "title": "Critical",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "user",
+              "role",
+              "group",
+              "s3",
+              "kms",
+              "secret",
+              "parameter",
+              "lambda",
+              "ec2",
+              "ebs",
+              "rds"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "account_id"
+        ],
+        "title": "AccessNode",
+        "type": "object"
+      },
+      "AccessStatus": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "title": "AccessStatus",
+        "type": "object"
+      },
+      "Analysis": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "mitre": {
+            "items": {
+              "pattern": "^T[0-9]{4}(?:\\.[0-9]{3})?$",
+              "type": "string"
+            },
+            "maxItems": 12,
+            "title": "Mitre",
+            "type": "array"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "next_steps": {
+            "items": {
+              "maxLength": 450,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 6,
+            "minItems": 1,
+            "title": "Next Steps",
+            "type": "array"
+          },
+          "owner_message": {
+            "maxLength": 1400,
+            "minLength": 1,
+            "title": "Owner Message",
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "template",
+              "anthropic"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "summary": {
+            "maxLength": 1800,
+            "minLength": 1,
+            "title": "Summary",
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "likely_malicious",
+              "suspicious",
+              "likely_benign"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "verdict",
+          "mitre",
+          "next_steps",
+          "owner_message",
+          "source",
+          "model",
+          "created_at"
+        ],
+        "title": "Analysis",
+        "type": "object"
+      },
+      "AssistantStatus": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          }
+        },
+        "required": [
+          "enabled",
+          "model"
+        ],
+        "title": "AssistantStatus",
+        "type": "object"
+      },
+      "AuditEntry": {
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "details": {
+            "additionalProperties": true,
+            "title": "Details",
+            "type": "object"
+          },
+          "hash": {
+            "title": "Hash",
+            "type": "string"
+          },
+          "prev_hash": {
+            "title": "Prev Hash",
+            "type": "string"
+          },
+          "seq": {
+            "title": "Seq",
+            "type": "integer"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "seq",
+          "at",
+          "action",
+          "target",
+          "details",
+          "prev_hash",
+          "hash"
+        ],
+        "title": "AuditEntry",
+        "type": "object"
+      },
+      "AuditPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "valid": {
+            "title": "Valid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "valid",
+          "items"
+        ],
+        "title": "AuditPage",
+        "type": "object"
+      },
+      "AwsImport": {
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "pattern": "^[0-9]{12}$",
+            "title": "Account Id",
+            "type": "string"
+          },
+          "credential_source": {
+            "default": "profile",
+            "enum": [
+              "profile",
+              "environment"
+            ],
+            "title": "Credential Source",
+            "type": "string"
+          },
+          "days": {
+            "default": 21,
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Days",
+            "type": "integer"
+          },
+          "include_iam": {
+            "default": true,
+            "title": "Include Iam",
+            "type": "boolean"
+          },
+          "profile": {
+            "default": "",
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_.@+=,: -]*$",
+            "title": "Profile",
+            "type": "string"
+          },
+          "region": {
+            "maxLength": 30,
+            "pattern": "^[a-z]{2}(?:-[a-z]+)+-[0-9]$",
+            "title": "Region",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "region"
+        ],
+        "title": "AwsImport",
+        "type": "object"
+      },
+      "AwsSettings": {
+        "additionalProperties": false,
+        "properties": {
+          "account_id": {
+            "pattern": "^[0-9]{12}$",
+            "title": "Account Id",
+            "type": "string"
+          },
+          "credential_source": {
+            "default": "profile",
+            "enum": [
+              "profile",
+              "environment"
+            ],
+            "title": "Credential Source",
+            "type": "string"
+          },
+          "profile": {
+            "default": "",
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_.@+=,: -]*$",
+            "title": "Profile",
+            "type": "string"
+          },
+          "region": {
+            "maxLength": 30,
+            "pattern": "^[a-z]{2}(?:-[a-z]+)+-[0-9]$",
+            "title": "Region",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "region"
+        ],
+        "title": "AwsSettings",
+        "type": "object"
+      },
+      "AwsWorkspace": {
+        "properties": {
+          "account_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Account Id"
+          },
+          "available_profiles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Available Profiles",
+            "type": "array"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "environment_credentials": {
+            "title": "Environment Credentials",
+            "type": "boolean"
+          },
+          "last_import": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImportSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "enabled",
+          "account_id",
+          "available_profiles",
+          "environment_credentials",
+          "last_import"
+        ],
+        "title": "AwsWorkspace",
+        "type": "object"
+      },
+      "Backtest": {
+        "properties": {
+          "changed": {
+            "title": "Changed",
+            "type": "integer"
+          },
+          "evaluated": {
+            "title": "Evaluated",
+            "type": "integer"
+          },
+          "examples": {
+            "items": {
+              "$ref": "#/components/schemas/WindowChange"
+            },
+            "title": "Examples",
+            "type": "array"
+          },
+          "examples_events": {
+            "items": {
+              "$ref": "#/components/schemas/RuleMatch"
+            },
+            "title": "Examples Events",
+            "type": "array"
+          },
+          "matches": {
+            "title": "Matches",
+            "type": "integer"
+          },
+          "new_by_day": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "New By Day",
+            "type": "object"
+          },
+          "new_incidents": {
+            "title": "New Incidents",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "evaluated",
+          "changed",
+          "new_incidents",
+          "new_by_day",
+          "examples",
+          "matches",
+          "examples_events"
+        ],
+        "title": "Backtest",
+        "type": "object"
+      },
+      "BacktestInput": {
+        "properties": {
+          "days": {
+            "default": 7,
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Days",
+            "type": "integer"
+          },
+          "yaml": {
+            "maxLength": 32768,
+            "minLength": 1,
+            "title": "Yaml",
+            "type": "string"
+          }
+        },
+        "required": [
+          "yaml"
+        ],
+        "title": "BacktestInput",
+        "type": "object"
+      },
+      "Baseline": {
+        "properties": {
+          "fact_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Fact Weights",
+            "type": "object"
+          },
+          "matrix": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "title": "Matrix",
+            "type": "array"
+          },
+          "profile": {
+            "enum": [
+              "core-v1",
+              "cloud-v2"
+            ],
+            "title": "Profile",
+            "type": "string"
+          },
+          "thr_high": {
+            "title": "Thr High",
+            "type": "number"
+          },
+          "thr_mid": {
+            "title": "Thr Mid",
+            "type": "number"
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Weights",
+            "type": "object"
+          }
+        },
+        "required": [
+          "profile",
+          "matrix",
+          "weights",
+          "fact_weights",
+          "thr_mid",
+          "thr_high"
+        ],
+        "title": "Baseline",
+        "type": "object"
+      },
+      "Breach": {
+        "properties": {
+          "account": {
+            "title": "Account",
+            "type": "string"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "level": {
+            "title": "Level",
+            "type": "string"
+          },
+          "resolution_late": {
+            "title": "Resolution Late",
+            "type": "boolean"
+          },
+          "response_late": {
+            "title": "Response Late",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "case_id",
+          "account",
+          "level",
+          "response_late",
+          "resolution_late"
+        ],
+        "title": "Breach",
+        "type": "object"
+      },
+      "Case": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "identities": {
+            "items": {
+              "$ref": "#/components/schemas/Principal"
+            },
+            "title": "Identities",
+            "type": "array"
+          },
+          "incidents": {
+            "items": {
+              "$ref": "#/components/schemas/Incident"
+            },
+            "title": "Incidents",
+            "type": "array"
+          },
+          "level": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "risk": {
+            "title": "Risk",
+            "type": "number"
+          },
+          "simulation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimulationCase"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "new",
+              "investigating",
+              "responded",
+              "closed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated": {
+            "format": "date-time",
+            "title": "Updated",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "level",
+          "risk",
+          "status",
+          "updated",
+          "identities",
+          "incidents"
+        ],
+        "title": "Case",
+        "type": "object"
+      },
+      "CaseTimeline": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CaseTimelineEntry"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "CaseTimeline",
+        "type": "object"
+      },
+      "CaseTimelineEntry": {
+        "properties": {
+          "behavior": {
+            "title": "Behavior",
+            "type": "number"
+          },
+          "event": {
+            "$ref": "#/components/schemas/TrailEvent"
+          },
+          "incident_id": {
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "role_transition": {
+            "title": "Role Transition",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "incident_id",
+          "behavior",
+          "event",
+          "role_transition"
+        ],
+        "title": "CaseTimelineEntry",
+        "type": "object"
+      },
+      "Challenge": {
+        "properties": {
+          "challenge": {
+            "title": "Challenge",
+            "type": "string"
+          }
+        },
+        "required": [
+          "challenge"
+        ],
+        "title": "Challenge",
+        "type": "object"
+      },
+      "Check": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "critical",
+              "high",
+              "medium"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "passed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passed"
+          }
+        },
+        "required": [
+          "id",
+          "level",
+          "passed"
+        ],
+        "title": "Check",
+        "type": "object"
+      },
+      "CloudChecks": {
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/Check"
+            },
+            "title": "Checks",
+            "type": "array"
+          },
+          "newest_event": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Newest Event"
+          },
+          "region": {
+            "title": "Region",
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "demo",
+              "aws"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "taken_at": {
+            "format": "date-time",
+            "title": "Taken At",
+            "type": "string"
+          },
+          "unavailable": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Unavailable",
+            "type": "array"
+          }
+        },
+        "required": [
+          "account_id",
+          "region",
+          "taken_at",
+          "source",
+          "checks",
+          "unavailable",
+          "newest_event"
+        ],
+        "title": "CloudChecks",
+        "type": "object"
+      },
+      "Comparison": {
+        "properties": {
+          "changed": {
+            "title": "Changed",
+            "type": "integer"
+          },
+          "evaluated": {
+            "title": "Evaluated",
+            "type": "integer"
+          },
+          "examples": {
+            "items": {
+              "$ref": "#/components/schemas/WindowChange"
+            },
+            "title": "Examples",
+            "type": "array"
+          },
+          "new_by_day": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "New By Day",
+            "type": "object"
+          },
+          "new_incidents": {
+            "title": "New Incidents",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "evaluated",
+          "changed",
+          "new_incidents",
+          "new_by_day",
+          "examples"
+        ],
+        "title": "Comparison",
+        "type": "object"
+      },
+      "Delivery": {
+        "properties": {
+          "delivered": {
+            "title": "Delivered",
+            "type": "boolean"
+          },
+          "sent_at": {
+            "format": "date-time",
+            "title": "Sent At",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "status",
+          "delivered",
+          "sent_at"
+        ],
+        "title": "Delivery",
+        "type": "object"
+      },
+      "DraftInput": {
+        "additionalProperties": false,
+        "properties": {
+          "matrix": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "maxItems": 10,
+            "minItems": 8,
+            "title": "Matrix",
+            "type": "array"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 3,
+            "title": "Name",
+            "type": "string"
+          },
+          "profile": {
+            "enum": [
+              "core-v1",
+              "cloud-v2"
+            ],
+            "title": "Profile",
+            "type": "string"
+          },
+          "thr_high": {
+            "default": 50,
+            "exclusiveMinimum": 0.0,
+            "maximum": 100.0,
+            "title": "Thr High",
+            "type": "number"
+          },
+          "thr_mid": {
+            "default": 25,
+            "exclusiveMaximum": 100.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Thr Mid",
+            "type": "number"
+          }
+        },
+        "required": [
+          "profile",
+          "matrix",
+          "name"
+        ],
+        "title": "DraftInput",
+        "type": "object"
+      },
+      "DryRun": {
+        "properties": {
+          "api": {
+            "const": "iam:AttachUserPolicy",
+            "title": "Api",
+            "type": "string"
+          },
+          "at": {
+            "format": "date-time",
+            "title": "At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "incident_id": {
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "mode": {
+            "const": "dry_run",
+            "title": "Mode",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Params",
+            "type": "object"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "incident_id",
+          "target",
+          "at",
+          "api",
+          "params",
+          "mode"
+        ],
+        "title": "DryRun",
+        "type": "object"
+      },
+      "EventEvidence": {
+        "properties": {
+          "behavior": {
+            "title": "Behavior",
+            "type": "number"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "region": {
+            "title": "Region",
+            "type": "string"
+          },
+          "time": {
+            "format": "date-time",
+            "title": "Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "time",
+          "operation",
+          "region",
+          "category",
+          "behavior"
+        ],
+        "title": "EventEvidence",
+        "type": "object"
+      },
+      "EventsPage": {
+        "properties": {
+          "engine": {
+            "enum": [
+              "clickhouse",
+              "local"
+            ],
+            "title": "Engine",
+            "type": "string"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TrailEvent"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          }
+        },
+        "required": [
+          "engine",
+          "items",
+          "next_cursor"
+        ],
+        "title": "EventsPage",
+        "type": "object"
+      },
+      "Evidence": {
+        "properties": {
+          "baseline_days": {
+            "title": "Baseline Days",
+            "type": "integer"
+          },
+          "baseline_events": {
+            "title": "Baseline Events",
+            "type": "integer"
+          },
+          "fact_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Fact Weights",
+            "type": "object"
+          },
+          "high": {
+            "title": "High",
+            "type": "number"
+          },
+          "hours": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Hours",
+            "type": "array"
+          },
+          "mean": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean"
+          },
+          "medium": {
+            "title": "Medium",
+            "type": "number"
+          },
+          "network_count": {
+            "title": "Network Count",
+            "type": "integer"
+          },
+          "operations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Operations",
+            "type": "array"
+          },
+          "regions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
+          },
+          "snapshot_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshot At"
+          },
+          "std": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Std"
+          },
+          "strongest_events": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Strongest Events",
+            "type": "object"
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Weights",
+            "type": "object"
+          }
+        },
+        "required": [
+          "baseline_events",
+          "baseline_days",
+          "mean",
+          "std",
+          "regions",
+          "hours",
+          "operations",
+          "network_count",
+          "snapshot_at",
+          "weights",
+          "fact_weights",
+          "medium",
+          "high",
+          "strongest_events"
+        ],
+        "title": "Evidence",
+        "type": "object"
+      },
+      "ExceptionInput": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "maxLength": 350,
+            "minLength": 1,
+            "title": "Case Id",
+            "type": "string"
+          },
+          "days": {
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Days",
+            "type": "integer"
+          },
+          "field": {
+            "enum": [
+              "region",
+              "ip_prefix",
+              "cidr",
+              "event_name",
+              "user_agent_prefix"
+            ],
+            "title": "Field",
+            "type": "string"
+          },
+          "identity_id": {
+            "maxLength": 350,
+            "minLength": 5,
+            "title": "Identity Id",
+            "type": "string"
+          },
+          "indicator": {
+            "enum": [
+              "geo",
+              "ip",
+              "time",
+              "seq",
+              "vol",
+              "priv",
+              "secret",
+              "dormant",
+              "wexfil"
+            ],
+            "title": "Indicator",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason",
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identity_id",
+          "indicator",
+          "field",
+          "value",
+          "reason",
+          "days",
+          "case_id"
+        ],
+        "title": "ExceptionInput",
+        "type": "object"
+      },
+      "ExceptionRecord": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "maxLength": 350,
+            "minLength": 1,
+            "title": "Case Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "days": {
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Days",
+            "type": "integer"
+          },
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "field": {
+            "enum": [
+              "region",
+              "ip_prefix",
+              "cidr",
+              "event_name",
+              "user_agent_prefix"
+            ],
+            "title": "Field",
+            "type": "string"
+          },
+          "hits": {
+            "default": 0,
+            "title": "Hits",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "identity_id": {
+            "maxLength": 350,
+            "minLength": 5,
+            "title": "Identity Id",
+            "type": "string"
+          },
+          "indicator": {
+            "enum": [
+              "geo",
+              "ip",
+              "time",
+              "seq",
+              "vol",
+              "priv",
+              "secret",
+              "dormant",
+              "wexfil"
+            ],
+            "title": "Indicator",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "title": "Reason",
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identity_id",
+          "indicator",
+          "field",
+          "value",
+          "reason",
+          "days",
+          "case_id",
+          "id",
+          "created_at",
+          "expires_at"
+        ],
+        "title": "ExceptionRecord",
+        "type": "object"
+      },
+      "Explanation": {
+        "additionalProperties": false,
+        "properties": {
+          "key_links": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4,
+            "title": "Key Links",
+            "type": "array"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "source": {
+            "enum": [
+              "template",
+              "anthropic"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/ExplanationStep"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Steps",
+            "type": "array"
+          },
+          "summary": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "steps",
+          "key_links",
+          "source"
+        ],
+        "title": "Explanation",
+        "type": "object"
+      },
+      "ExplanationStep": {
+        "additionalProperties": false,
+        "properties": {
+          "edge_id": {
+            "pattern": "^[0-9a-f]{24}$",
+            "title": "Edge Id",
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 450,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "edge_id",
+          "text"
+        ],
+        "title": "ExplanationStep",
+        "type": "object"
+      },
+      "FactorLogin": {
+        "properties": {
+          "challenge": {
+            "maxLength": 43,
+            "minLength": 43,
+            "title": "Challenge",
+            "type": "string"
+          },
+          "code": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "challenge",
+          "code"
+        ],
+        "title": "FactorLogin",
+        "type": "object"
+      },
+      "GenerateRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "consent": {
+            "const": true,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "language": {
+            "default": "uk",
+            "enum": [
+              "uk",
+              "en"
+            ],
+            "title": "Language",
+            "type": "string"
+          }
+        },
+        "required": [
+          "consent"
+        ],
+        "title": "GenerateRequest",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "IdentitySummary": {
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "exposure": {
+            "title": "Exposure",
+            "type": "number"
+          },
+          "facts": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Facts",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "quadrant": {
+            "enum": [
+              "act_now",
+              "investigate",
+              "harden",
+              "normal"
+            ],
+            "title": "Quadrant",
+            "type": "string"
+          },
+          "risk": {
+            "title": "Risk",
+            "type": "number"
+          }
+        },
+        "required": [
+          "account_id",
+          "kind",
+          "name",
+          "id",
+          "risk",
+          "exposure",
+          "quadrant",
+          "facts"
+        ],
+        "title": "IdentitySummary",
+        "type": "object"
+      },
+      "ImportResult": {
+        "properties": {
+          "attributed": {
+            "title": "Attributed",
+            "type": "integer"
+          },
+          "events": {
+            "title": "Events",
+            "type": "integer"
+          },
+          "high": {
+            "title": "High",
+            "type": "integer"
+          },
+          "identities": {
+            "title": "Identities",
+            "type": "integer"
+          },
+          "incidents": {
+            "title": "Incidents",
+            "type": "integer"
+          },
+          "inserted": {
+            "title": "Inserted",
+            "type": "integer"
+          },
+          "windows": {
+            "title": "Windows",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "inserted",
+          "events",
+          "attributed",
+          "identities",
+          "windows",
+          "incidents",
+          "high"
+        ],
+        "title": "ImportResult",
+        "type": "object"
+      },
+      "ImportSummary": {
+        "properties": {
+          "cloudtrail": {
+            "$ref": "#/components/schemas/ImportResult"
+          },
+          "iam": {
+            "enum": [
+              "imported",
+              "skipped",
+              "unavailable"
+            ],
+            "title": "Iam",
+            "type": "string"
+          },
+          "iam_identities": {
+            "title": "Iam Identities",
+            "type": "integer"
+          },
+          "imported_at": {
+            "format": "date-time",
+            "title": "Imported At",
+            "type": "string"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/AwsSettings"
+          }
+        },
+        "required": [
+          "imported_at",
+          "settings",
+          "cloudtrail",
+          "iam",
+          "iam_identities"
+        ],
+        "title": "ImportSummary",
+        "type": "object"
+      },
+      "Incident": {
+        "properties": {
+          "auto_resolution": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Resolution"
+          },
+          "behavior": {
+            "title": "Behavior",
+            "type": "number"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "contributions": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Contributions",
+            "type": "object"
+          },
+          "detected_at": {
+            "format": "date-time",
+            "title": "Detected At",
+            "type": "string"
+          },
+          "events": {
+            "title": "Events",
+            "type": "integer"
+          },
+          "explanation_en": {
+            "title": "Explanation En",
+            "type": "string"
+          },
+          "explanation_uk": {
+            "title": "Explanation Uk",
+            "type": "string"
+          },
+          "facts": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Facts",
+            "type": "array"
+          },
+          "first_response_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Response At"
+          },
+          "hour": {
+            "format": "date-time",
+            "title": "Hour",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "identity": {
+            "$ref": "#/components/schemas/Principal"
+          },
+          "indicators": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Indicators",
+            "type": "object"
+          },
+          "level": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "modifier": {
+            "title": "Modifier",
+            "type": "number"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "resolved_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolved At"
+          },
+          "risk": {
+            "title": "Risk",
+            "type": "number"
+          },
+          "status": {
+            "enum": [
+              "new",
+              "investigating",
+              "responded",
+              "closed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "verdict": {
+            "anyOf": [
+              {
+                "enum": [
+                  "true_positive",
+                  "benign_true_positive",
+                  "false_positive"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verdict"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "identity",
+          "hour",
+          "case_id",
+          "status",
+          "verdict",
+          "reason",
+          "note",
+          "detected_at",
+          "resolved_at",
+          "auto_resolution",
+          "version",
+          "model_version",
+          "events",
+          "behavior",
+          "modifier",
+          "risk",
+          "level",
+          "indicators",
+          "contributions",
+          "facts",
+          "explanation_uk",
+          "explanation_en"
+        ],
+        "title": "Incident",
+        "type": "object"
+      },
+      "IncidentTrace": {
+        "properties": {
+          "baseline": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Evidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "behavior_without_context": {
+            "title": "Behavior Without Context",
+            "type": "number"
+          },
+          "context_uplift": {
+            "title": "Context Uplift",
+            "type": "number"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventEvidence"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "fact_weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Fact Weights",
+            "type": "object"
+          },
+          "high_threshold": {
+            "title": "High Threshold",
+            "type": "number"
+          },
+          "hour": {
+            "format": "date-time",
+            "title": "Hour",
+            "type": "string"
+          },
+          "medium_threshold": {
+            "title": "Medium Threshold",
+            "type": "number"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "policy_override": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policy Override"
+          },
+          "signals": {
+            "items": {
+              "$ref": "#/components/schemas/Signal"
+            },
+            "title": "Signals",
+            "type": "array"
+          },
+          "uncapped_risk": {
+            "title": "Uncapped Risk",
+            "type": "number"
+          },
+          "without_context_level": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Without Context Level",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hour",
+          "model_version",
+          "baseline",
+          "behavior_without_context",
+          "without_context_level",
+          "context_uplift",
+          "uncapped_risk",
+          "medium_threshold",
+          "high_threshold",
+          "policy_override",
+          "fact_weights",
+          "signals",
+          "events"
+        ],
+        "title": "IncidentTrace",
+        "type": "object"
+      },
+      "IncidentUpdate": {
+        "properties": {
+          "note": {
+            "default": "",
+            "maxLength": 4000,
+            "title": "Note",
+            "type": "string"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "maxLength": 250,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "status": {
+            "enum": [
+              "new",
+              "investigating",
+              "responded",
+              "closed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "verdict": {
+            "anyOf": [
+              {
+                "enum": [
+                  "true_positive",
+                  "benign_true_positive",
+                  "false_positive"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verdict"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "IncidentUpdate",
+        "type": "object"
+      },
+      "IsolationRequest": {
+        "properties": {
+          "confirmation": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Confirmation",
+            "type": "string"
+          }
+        },
+        "required": [
+          "confirmation"
+        ],
+        "title": "IsolationRequest",
+        "type": "object"
+      },
+      "MatrixInput": {
+        "additionalProperties": false,
+        "properties": {
+          "matrix": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "maxItems": 10,
+            "minItems": 8,
+            "title": "Matrix",
+            "type": "array"
+          },
+          "profile": {
+            "enum": [
+              "core-v1",
+              "cloud-v2"
+            ],
+            "title": "Profile",
+            "type": "string"
+          }
+        },
+        "required": [
+          "profile",
+          "matrix"
+        ],
+        "title": "MatrixInput",
+        "type": "object"
+      },
+      "Overview": {
+        "properties": {
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/Case"
+            },
+            "title": "Cases",
+            "type": "array"
+          },
+          "identities": {
+            "items": {
+              "$ref": "#/components/schemas/IdentitySummary"
+            },
+            "title": "Identities",
+            "type": "array"
+          },
+          "now": {
+            "format": "date-time",
+            "title": "Now",
+            "type": "string"
+          },
+          "open_by_level": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Open By Level",
+            "type": "object"
+          },
+          "source": {
+            "enum": [
+              "demo",
+              "aws"
+            ],
+            "title": "Source",
+            "type": "string"
+          },
+          "timeline": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Timeline",
+            "type": "object"
+          }
+        },
+        "required": [
+          "source",
+          "cases",
+          "identities",
+          "open_by_level",
+          "timeline",
+          "now"
+        ],
+        "title": "Overview",
+        "type": "object"
+      },
+      "PasswordLogin": {
+        "properties": {
+          "email": {
+            "maxLength": 254,
+            "minLength": 1,
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "PasswordLogin",
+        "type": "object"
+      },
+      "PathDetail": {
+        "properties": {
+          "explanation": {
+            "$ref": "#/components/schemas/Explanation"
+          },
+          "hops": {
+            "title": "Hops",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "key_links": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Key Links",
+            "type": "array"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/AccessNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/AccessNode"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/AccessNode"
+          },
+          "routes": {
+            "items": {
+              "items": {
+                "$ref": "#/components/schemas/AccessEdge"
+              },
+              "type": "array"
+            },
+            "title": "Routes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "origin",
+          "resource",
+          "hops",
+          "routes",
+          "nodes",
+          "key_links",
+          "explanation"
+        ],
+        "title": "PathDetail",
+        "type": "object"
+      },
+      "PathRequest": {
+        "properties": {
+          "consent": {
+            "const": true,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "language": {
+            "enum": [
+              "uk",
+              "en"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "origin": {
+            "maxLength": 350,
+            "title": "Origin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin",
+          "language",
+          "consent"
+        ],
+        "title": "PathRequest",
+        "type": "object"
+      },
+      "PipelineStatus": {
+        "properties": {
+          "clickhouse_events": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clickhouse Events"
+          },
+          "kafka_configured": {
+            "title": "Kafka Configured",
+            "type": "boolean"
+          },
+          "outbox_pending": {
+            "title": "Outbox Pending",
+            "type": "integer"
+          },
+          "outbox_published": {
+            "title": "Outbox Published",
+            "type": "integer"
+          },
+          "scoring_through": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scoring Through"
+          },
+          "temporal_configured": {
+            "title": "Temporal Configured",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "kafka_configured",
+          "temporal_configured",
+          "outbox_pending",
+          "outbox_published",
+          "clickhouse_events",
+          "scoring_through"
+        ],
+        "title": "PipelineStatus",
+        "type": "object"
+      },
+      "Principal": {
+        "properties": {
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_id",
+          "kind",
+          "name"
+        ],
+        "title": "Principal",
+        "type": "object"
+      },
+      "Profile": {
+        "additionalProperties": false,
+        "properties": {
+          "compact": {
+            "default": false,
+            "title": "Compact",
+            "type": "boolean"
+          },
+          "email": {
+            "default": "",
+            "maxLength": 254,
+            "pattern": "^(|[^\\s@]+@[^\\s@]+\\.[^\\s@]+)$",
+            "title": "Email",
+            "type": "string"
+          },
+          "language": {
+            "default": "uk",
+            "enum": [
+              "uk",
+              "en"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "local_time": {
+            "default": false,
+            "title": "Local Time",
+            "type": "boolean"
+          },
+          "name": {
+            "default": "",
+            "maxLength": 100,
+            "title": "Name",
+            "type": "string"
+          },
+          "position": {
+            "default": "",
+            "maxLength": 100,
+            "title": "Position",
+            "type": "string"
+          },
+          "theme": {
+            "default": "dark",
+            "enum": [
+              "dark",
+              "light"
+            ],
+            "title": "Theme",
+            "type": "string"
+          }
+        },
+        "title": "Profile",
+        "type": "object"
+      },
+      "Quality": {
+        "properties": {
+          "benign_reasons": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Benign Reasons",
+            "type": "object"
+          },
+          "by_week": {
+            "items": {
+              "$ref": "#/components/schemas/Week"
+            },
+            "title": "By Week",
+            "type": "array"
+          },
+          "curve": {
+            "items": {
+              "$ref": "#/components/schemas/ThresholdPoint"
+            },
+            "title": "Curve",
+            "type": "array"
+          },
+          "false_positive_facts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "False Positive Facts",
+            "type": "object"
+          },
+          "false_positive_indicators": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "False Positive Indicators",
+            "type": "object"
+          },
+          "incidents_by_day": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Incidents By Day",
+            "type": "object"
+          },
+          "mtta_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mtta Hours"
+          },
+          "recommended": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ThresholdPoint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "by_week",
+          "incidents_by_day",
+          "mtta_hours",
+          "false_positive_indicators",
+          "false_positive_facts",
+          "benign_reasons",
+          "curve",
+          "recommended"
+        ],
+        "title": "Quality",
+        "type": "object"
+      },
+      "RoleAssignment": {
+        "properties": {
+          "accounts": {
+            "items": {
+              "pattern": "^[0-9]{12}$",
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Accounts",
+            "type": "array"
+          },
+          "role": {
+            "enum": [
+              "admin",
+              "analyst",
+              "detection_engineer",
+              "viewer"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "role"
+        ],
+        "title": "RoleAssignment",
+        "type": "object"
+      },
+      "RoleTransition": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "cross_account": {
+            "title": "Cross Account",
+            "type": "boolean"
+          },
+          "latest": {
+            "format": "date-time",
+            "title": "Latest",
+            "type": "string"
+          },
+          "risky": {
+            "title": "Risky",
+            "type": "integer"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "source_account": {
+            "title": "Source Account",
+            "type": "string"
+          },
+          "source_name": {
+            "title": "Source Name",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "target_account": {
+            "title": "Target Account",
+            "type": "string"
+          },
+          "target_name": {
+            "title": "Target Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "source_name",
+          "source_account",
+          "target",
+          "target_name",
+          "target_account",
+          "count",
+          "risky",
+          "cross_account",
+          "latest"
+        ],
+        "title": "RoleTransition",
+        "type": "object"
+      },
+      "RuleInput": {
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "default": "draft",
+            "enum": [
+              "draft",
+              "enabled",
+              "disabled"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "yaml": {
+            "maxLength": 32768,
+            "minLength": 1,
+            "title": "Yaml",
+            "type": "string"
+          }
+        },
+        "required": [
+          "yaml"
+        ],
+        "title": "RuleInput",
+        "type": "object"
+      },
+      "RuleMatch": {
+        "properties": {
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "region": {
+            "title": "Region",
+            "type": "string"
+          },
+          "time": {
+            "format": "date-time",
+            "title": "Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "operation",
+          "region",
+          "time"
+        ],
+        "title": "RuleMatch",
+        "type": "object"
+      },
+      "RuleRevision": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "priv",
+              "evasion",
+              "secret"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "integer"
+          },
+          "status": {
+            "default": "draft",
+            "enum": [
+              "draft",
+              "enabled",
+              "disabled"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "yaml": {
+            "maxLength": 32768,
+            "minLength": 1,
+            "title": "Yaml",
+            "type": "string"
+          }
+        },
+        "required": [
+          "yaml",
+          "id",
+          "name",
+          "category",
+          "revision",
+          "created_at"
+        ],
+        "title": "RuleRevision",
+        "type": "object"
+      },
+      "SLAReport": {
+        "properties": {
+          "awaiting_response": {
+            "title": "Awaiting Response",
+            "type": "integer"
+          },
+          "mtta_median_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mtta Median Hours"
+          },
+          "mtta_p90_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mtta P90 Hours"
+          },
+          "mttr_median_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mttr Median Hours"
+          },
+          "mttr_p90_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mttr P90 Hours"
+          },
+          "open_cases": {
+            "title": "Open Cases",
+            "type": "integer"
+          },
+          "overdue": {
+            "items": {
+              "$ref": "#/components/schemas/Breach"
+            },
+            "title": "Overdue",
+            "type": "array"
+          },
+          "overdue_resolution": {
+            "title": "Overdue Resolution",
+            "type": "integer"
+          },
+          "severity": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Severity",
+            "type": "object"
+          },
+          "within_resolution_target": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Within Resolution Target"
+          }
+        },
+        "required": [
+          "open_cases",
+          "awaiting_response",
+          "overdue_resolution",
+          "mtta_median_hours",
+          "mtta_p90_hours",
+          "mttr_median_hours",
+          "mttr_p90_hours",
+          "within_resolution_target",
+          "severity",
+          "overdue"
+        ],
+        "title": "SLAReport",
+        "type": "object"
+      },
+      "SLASettings": {
+        "additionalProperties": false,
+        "properties": {
+          "accounts": {
+            "maxProperties": 200,
+            "patternProperties": {
+              "^[0-9]{12}$": {
+                "$ref": "#/components/schemas/SLATargets"
+              }
+            },
+            "title": "Accounts",
+            "type": "object"
+          },
+          "high": {
+            "$ref": "#/components/schemas/Target"
+          },
+          "medium": {
+            "$ref": "#/components/schemas/Target"
+          }
+        },
+        "title": "SLASettings",
+        "type": "object"
+      },
+      "SLATargets": {
+        "additionalProperties": false,
+        "properties": {
+          "high": {
+            "$ref": "#/components/schemas/Target"
+          },
+          "medium": {
+            "$ref": "#/components/schemas/Target"
+          }
+        },
+        "title": "SLATargets",
+        "type": "object"
+      },
+      "SessionInfo": {
+        "properties": {
+          "accounts": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Accounts",
+            "type": "array"
+          },
+          "csrf": {
+            "title": "Csrf",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "admin",
+              "analyst",
+              "detection_engineer",
+              "viewer"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "role",
+          "csrf",
+          "accounts"
+        ],
+        "title": "SessionInfo",
+        "type": "object"
+      },
+      "ShadowInput": {
+        "properties": {
+          "days": {
+            "default": 7,
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Days",
+            "type": "integer"
+          }
+        },
+        "title": "ShadowInput",
+        "type": "object"
+      },
+      "Signal": {
+        "properties": {
+          "contribution": {
+            "title": "Contribution",
+            "type": "number"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "indicator": {
+            "title": "Indicator",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "indicator",
+          "value",
+          "weight",
+          "contribution",
+          "event_id"
+        ],
+        "title": "Signal",
+        "type": "object"
+      },
+      "SimulationCase": {
+        "properties": {
+          "context_en": {
+            "title": "Context En",
+            "type": "string"
+          },
+          "context_uk": {
+            "title": "Context Uk",
+            "type": "string"
+          },
+          "title_en": {
+            "title": "Title En",
+            "type": "string"
+          },
+          "title_uk": {
+            "title": "Title Uk",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title_uk",
+          "title_en",
+          "context_uk",
+          "context_en"
+        ],
+        "title": "SimulationCase",
+        "type": "object"
+      },
+      "Target": {
+        "additionalProperties": false,
+        "properties": {
+          "resolution": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 720.0,
+            "title": "Resolution",
+            "type": "number"
+          },
+          "response": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 720.0,
+            "title": "Response",
+            "type": "number"
+          }
+        },
+        "required": [
+          "response",
+          "resolution"
+        ],
+        "title": "Target",
+        "type": "object"
+      },
+      "ThresholdPoint": {
+        "properties": {
+          "f1": {
+            "title": "F1",
+            "type": "number"
+          },
+          "precision": {
+            "title": "Precision",
+            "type": "number"
+          },
+          "predicted": {
+            "title": "Predicted",
+            "type": "integer"
+          },
+          "threshold": {
+            "title": "Threshold",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "threshold",
+          "precision",
+          "f1",
+          "predicted"
+        ],
+        "title": "ThresholdPoint",
+        "type": "object"
+      },
+      "Toggle": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "title": "Toggle",
+        "type": "object"
+      },
+      "TrailEvent": {
+        "properties": {
+          "access_key_id": {
+            "title": "Access Key Id",
+            "type": "string"
+          },
+          "account_id": {
+            "title": "Account Id",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "error_code": {
+            "title": "Error Code",
+            "type": "string"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "identity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Principal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mfa_used": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mfa Used"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "region": {
+            "title": "Region",
+            "type": "string"
+          },
+          "session_name": {
+            "title": "Session Name",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "source_ip": {
+            "title": "Source Ip",
+            "type": "string"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "time": {
+            "format": "date-time",
+            "title": "Time",
+            "type": "string"
+          },
+          "user_agent": {
+            "title": "User Agent",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "time",
+          "account_id",
+          "identity",
+          "name",
+          "region",
+          "source",
+          "category",
+          "source_ip",
+          "access_key_id",
+          "session_name",
+          "target",
+          "user_agent",
+          "mfa_used",
+          "error_code"
+        ],
+        "title": "TrailEvent",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "Version": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "matrix": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "maxItems": 10,
+            "minItems": 8,
+            "title": "Matrix",
+            "type": "array"
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 3,
+            "title": "Name",
+            "type": "string"
+          },
+          "profile": {
+            "enum": [
+              "core-v1",
+              "cloud-v2"
+            ],
+            "title": "Profile",
+            "type": "string"
+          },
+          "report": {
+            "$ref": "#/components/schemas/AHPReport"
+          },
+          "rule_versions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Rule Versions",
+            "type": "array"
+          },
+          "shadow": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Comparison"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "thr_high": {
+            "default": 50,
+            "exclusiveMinimum": 0.0,
+            "maximum": 100.0,
+            "title": "Thr High",
+            "type": "number"
+          },
+          "thr_mid": {
+            "default": 25,
+            "exclusiveMaximum": 100.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Thr Mid",
+            "type": "number"
+          }
+        },
+        "required": [
+          "profile",
+          "matrix",
+          "name",
+          "id",
+          "created_at",
+          "report",
+          "rule_versions"
+        ],
+        "title": "Version",
+        "type": "object"
+      },
+      "WebhookInput": {
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "maxLength": 512,
+            "minLength": 9,
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "WebhookInput",
+        "type": "object"
+      },
+      "WebhookStatus": {
+        "properties": {
+          "secret_configured": {
+            "title": "Secret Configured",
+            "type": "boolean"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": [
+          "url",
+          "secret_configured"
+        ],
+        "title": "WebhookStatus",
+        "type": "object"
+      },
+      "Week": {
+        "properties": {
+          "labeled": {
+            "title": "Labeled",
+            "type": "integer"
+          },
+          "precision": {
+            "title": "Precision",
+            "type": "number"
+          },
+          "starts": {
+            "title": "Starts",
+            "type": "string"
+          },
+          "true_positives": {
+            "title": "True Positives",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "starts",
+          "labeled",
+          "true_positives",
+          "precision"
+        ],
+        "title": "Week",
+        "type": "object"
+      },
+      "WindowChange": {
+        "properties": {
+          "after": {
+            "title": "After",
+            "type": "string"
+          },
+          "before": {
+            "title": "Before",
+            "type": "string"
+          },
+          "hour": {
+            "format": "date-time",
+            "title": "Hour",
+            "type": "string"
+          },
+          "identity_id": {
+            "title": "Identity Id",
+            "type": "string"
+          },
+          "risk_after": {
+            "title": "Risk After",
+            "type": "number"
+          },
+          "risk_before": {
+            "title": "Risk Before",
+            "type": "number"
+          }
+        },
+        "required": [
+          "identity_id",
+          "hour",
+          "before",
+          "after",
+          "risk_before",
+          "risk_after"
+        ],
+        "title": "WindowChange",
+        "type": "object"
+      },
+      "WorkspaceUser": {
+        "properties": {
+          "accounts": {
+            "items": {
+              "pattern": "^[0-9]{12}$",
+              "type": "string"
+            },
+            "maxItems": 200,
+            "title": "Accounts",
+            "type": "array"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "mfa_enrolled": {
+            "title": "Mfa Enrolled",
+            "type": "boolean"
+          },
+          "role": {
+            "enum": [
+              "admin",
+              "analyst",
+              "detection_engineer",
+              "viewer"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "role",
+          "email",
+          "mfa_enrolled"
+        ],
+        "title": "WorkspaceUser",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "IdentityGuard",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/admin/access": {
+      "get": {
+        "operationId": "listAccessUsers",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WorkspaceUser"
+                  },
+                  "title": "Response Listaccessusers",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Users"
+      }
+    },
+    "/api/v1/admin/access/{email}": {
+      "put": {
+        "operationId": "updateAccessAssignment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "title": "Email",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleAssignment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceUser"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Assignment"
+      }
+    },
+    "/api/v1/assistant": {
+      "get": {
+        "operationId": "getAssistantStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Status"
+      }
+    },
+    "/api/v1/attack-paths": {
+      "get": {
+        "operationId": "listAttackPaths",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "origin",
+            "required": true,
+            "schema": {
+              "maxLength": 350,
+              "title": "Origin",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "language",
+            "required": false,
+            "schema": {
+              "default": "uk",
+              "enum": [
+                "uk",
+                "en"
+              ],
+              "title": "Language",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PathDetail"
+                  },
+                  "title": "Response Listattackpaths",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Paths"
+      }
+    },
+    "/api/v1/attack-paths/origins": {
+      "get": {
+        "operationId": "listAttackOrigins",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AccessNode"
+                  },
+                  "title": "Response Listattackorigins",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Origins"
+      }
+    },
+    "/api/v1/attack-paths/{path_id}/explain": {
+      "post": {
+        "operationId": "explainAttackPath",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "path_id",
+            "required": true,
+            "schema": {
+              "title": "Path Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PathRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Explanation"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Explain"
+      }
+    },
+    "/api/v1/audit": {
+      "get": {
+        "operationId": "listAudit",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Audit"
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "beginLogin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Login"
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "endLogin",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Logout"
+      }
+    },
+    "/api/v1/auth/session": {
+      "get": {
+        "operationId": "getAccessSession",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Session"
+      }
+    },
+    "/api/v1/auth/status": {
+      "get": {
+        "operationId": "getAccessStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Status"
+      }
+    },
+    "/api/v1/auth/verify": {
+      "post": {
+        "operationId": "verifyLogin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FactorLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify"
+      }
+    },
+    "/api/v1/cases/{case_id}/analysis": {
+      "get": {
+        "operationId": "getCaseAnalysis",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "language",
+            "required": false,
+            "schema": {
+              "default": "uk",
+              "enum": [
+                "uk",
+                "en"
+              ],
+              "title": "Language",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Analysis"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Case Analysis"
+      },
+      "post": {
+        "operationId": "generateCaseAnalysis",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Analysis"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate"
+      }
+    },
+    "/api/v1/cases/{case_id}/timeline": {
+      "get": {
+        "operationId": "getCaseTimeline",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseTimeline"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Case Timeline"
+      }
+    },
+    "/api/v1/cloud": {
+      "get": {
+        "operationId": "getCloudChecks",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/CloudChecks"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Getcloudchecks"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Cloud Checks"
+      }
+    },
+    "/api/v1/cloud/refresh": {
+      "post": {
+        "operationId": "refreshCloudChecks",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudChecks"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Refresh Cloud"
+      }
+    },
+    "/api/v1/detections": {
+      "get": {
+        "operationId": "listDetectionRevisions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RuleRevision"
+                  },
+                  "title": "Response Listdetectionrevisions",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Detections"
+      },
+      "post": {
+        "operationId": "saveDetectionRevision",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleRevision"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Rule"
+      }
+    },
+    "/api/v1/detections/backtest": {
+      "post": {
+        "operationId": "backtestDetection",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BacktestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Backtest"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Backtest"
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "operationId": "listEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "identity",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 350,
+              "title": "Identity",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "operation",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 128,
+              "title": "Operation",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "account",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 12,
+              "title": "Account",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 1024,
+              "title": "Cursor",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "region",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 50,
+              "title": "Region",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "default": "",
+              "maxLength": 30,
+              "title": "Category",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Since"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventsPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Events"
+      }
+    },
+    "/api/v1/incidents": {
+      "get": {
+        "operationId": "listIncidents",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Incident"
+                  },
+                  "title": "Response Listincidents",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Incidents"
+      }
+    },
+    "/api/v1/incidents/{incident_id}": {
+      "patch": {
+        "operationId": "updateIncident",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "if-match",
+            "required": true,
+            "schema": {
+              "title": "If-Match",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Incident"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Patch Incident"
+      }
+    },
+    "/api/v1/incidents/{incident_id}/isolation": {
+      "post": {
+        "operationId": "isolateUserDryRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "idempotency-key",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IsolationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DryRun"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Isolate User"
+      }
+    },
+    "/api/v1/incidents/{incident_id}/trace": {
+      "get": {
+        "operationId": "getIncidentTrace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incident_id",
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentTrace"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Trace"
+      }
+    },
+    "/api/v1/integrations/aws": {
+      "get": {
+        "operationId": "getAwsWorkspace",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AwsWorkspace"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Aws Workspace"
+      }
+    },
+    "/api/v1/integrations/aws/import": {
+      "post": {
+        "operationId": "importAwsAccount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AwsImport"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Import Account"
+      }
+    },
+    "/api/v1/integrations/aws/verify": {
+      "post": {
+        "operationId": "verifyAwsConnection",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AwsSettings"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AwsSettings"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify"
+      }
+    },
+    "/api/v1/integrations/webhook": {
+      "get": {
+        "operationId": "getWebhookStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Status"
+      },
+      "put": {
+        "operationId": "saveWebhook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save"
+      }
+    },
+    "/api/v1/integrations/webhook/test": {
+      "post": {
+        "operationId": "testWebhook",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delivery"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Test"
+      }
+    },
+    "/api/v1/models/ahp": {
+      "post": {
+        "operationId": "analyzeAhp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatrixInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AHPReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ahp"
+      }
+    },
+    "/api/v1/models/baselines": {
+      "get": {
+        "operationId": "listModelBaselines",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Baseline"
+                  },
+                  "title": "Response Listmodelbaselines",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Baselines"
+      }
+    },
+    "/api/v1/models/drafts": {
+      "get": {
+        "operationId": "listModelDrafts",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Version"
+                  },
+                  "title": "Response Listmodeldrafts",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Drafts"
+      },
+      "post": {
+        "operationId": "saveModelDraft",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Version"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Draft"
+      }
+    },
+    "/api/v1/models/drafts/{model_id}/shadow": {
+      "post": {
+        "operationId": "runModelShadow",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "model_id",
+            "required": true,
+            "schema": {
+              "title": "Model Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShadowInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Version"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Shadow"
+      }
+    },
+    "/api/v1/overview": {
+      "get": {
+        "operationId": "getOverview",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Overview"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Overview"
+      }
+    },
+    "/api/v1/pipeline": {
+      "get": {
+        "operationId": "getPipelineStatus",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PipelineStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Status"
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "operationId": "getProfile",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Profile"
+      },
+      "put": {
+        "operationId": "saveProfile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Profile"
+      }
+    },
+    "/api/v1/quality": {
+      "get": {
+        "operationId": "getRiskQuality",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quality"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Quality"
+      }
+    },
+    "/api/v1/role-chains": {
+      "get": {
+        "operationId": "listRoleChains",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 7,
+              "maximum": 30,
+              "minimum": 1,
+              "title": "Days",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RoleTransition"
+                  },
+                  "title": "Response Listrolechains",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Role Chains"
+      }
+    },
+    "/api/v1/sla": {
+      "get": {
+        "operationId": "getSlaReport",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "account",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9]{12}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Account"
+            }
+          },
+          {
+            "in": "query",
+            "name": "range",
+            "required": false,
+            "schema": {
+              "default": "all",
+              "enum": [
+                "7",
+                "30",
+                "all"
+              ],
+              "title": "Range",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SLAReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Sla"
+      }
+    },
+    "/api/v1/sla/settings": {
+      "get": {
+        "operationId": "getSlaSettings",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SLASettings"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Settings"
+      },
+      "put": {
+        "operationId": "saveSlaSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SLASettings"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SLASettings"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save"
+      }
+    },
+    "/api/v1/sources/upload": {
+      "post": {
+        "operationId": "uploadCloudTrail",
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "format": "binary",
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Upload"
+      }
+    },
+    "/api/v1/suppressions": {
+      "get": {
+        "operationId": "listSuppressions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ExceptionRecord"
+                  },
+                  "title": "Response Listsuppressions",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Suppressions"
+      },
+      "post": {
+        "operationId": "saveSuppression",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExceptionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionRecord"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Suppression"
+      }
+    },
+    "/api/v1/suppressions/rescore": {
+      "post": {
+        "operationId": "rescoreSuppressions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "boolean"
+                  },
+                  "title": "Response Rescoresuppressions",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Rescore"
+      }
+    },
+    "/api/v1/suppressions/{item_id}": {
+      "patch": {
+        "operationId": "toggleSuppression",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "title": "Item Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Toggle"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionRecord"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Toggle"
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "readiness",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Readiness",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Readiness"
+      }
+    }
+  }
+}

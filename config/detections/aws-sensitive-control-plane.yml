@@ -1,0 +1,52 @@
+id: aws-sensitive-control-plane
+name: Sensitive AWS control plane operations
+description: >
+  Recognize remote execution, compute provisioning attempts, resource sharing,
+  Lambda permission or layer changes, and issuance of federated credentials.
+  These signals raise the privileged-action indicator alongside behavioral context.
+category: priv
+value: 1
+condition:
+  any:
+    - all:
+        - {field: event_source, op: eq, value: ec2.amazonaws.com}
+        - {field: event_name, op: eq, value: RunInstances}
+        - {field: error_code, op: in, value: ['', Client.UnauthorizedOperation]}
+    - all:
+        - {field: error_code, op: eq, value: ''}
+        - any:
+            - all:
+                - {field: event_source, op: eq, value: ec2.amazonaws.com}
+                - {field: event_name, op: eq, value: ModifyInstanceAttribute}
+                - {field: request.userData, op: exists}
+            - all:
+                - {field: event_source, op: eq, value: ssm.amazonaws.com}
+                - {field: event_name, op: in, value: [SendCommand, StartSession]}
+            - all:
+                - {field: event_source, op: eq, value: ram.amazonaws.com}
+                - {field: event_name, op: eq, value: AssociateResourceShare}
+            - all:
+                - {field: event_source, op: eq, value: lambda.amazonaws.com}
+                - any:
+                    - {field: event_name, op: in, value: [AddPermission, AddPermission20150331v2]}
+                    - all:
+                        - {field: event_name, op: in, value: [UpdateFunctionConfiguration, UpdateFunctionConfiguration20150331v2]}
+                        - {field: request.layers, op: exists}
+            - all:
+                - {field: event_source, op: eq, value: sts.amazonaws.com}
+                - {field: event_name, op: eq, value: GetFederationToken}
+tests:
+  - event: {event_source: ec2.amazonaws.com, event_name: RunInstances, error_code: Client.UnauthorizedOperation}
+    expect: match
+  - event: {event_source: lambda.amazonaws.com, event_name: UpdateFunctionConfiguration20150331v2, error_code: '', request: {layers: [sample-layer]}}
+    expect: match
+  - event: {event_source: ssm.amazonaws.com, event_name: SendCommand, error_code: ''}
+    expect: match
+  - event: {event_source: sts.amazonaws.com, event_name: GetFederationToken, error_code: ''}
+    expect: match
+  - event: {event_source: ec2.amazonaws.com, event_name: RunInstances, error_code: AccessDenied}
+    expect: no_match
+  - event: {event_source: ec2.amazonaws.com, event_name: ModifyInstanceAttribute, error_code: '', request: {instanceType: m7i.large}}
+    expect: no_match
+  - event: {event_source: sts.amazonaws.com, event_name: GetCallerIdentity, error_code: ''}
+    expect: no_match

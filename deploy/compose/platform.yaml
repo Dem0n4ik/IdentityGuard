@@ -1,0 +1,120 @@
+# Optional local service stack. Start together with compose.yaml.
+x-bridge-environment: &bridge
+  IG_DATABASE: /app/data/demo.sqlite
+  IG_CLOUDTRAIL_COVERAGE_BREAKS: ${IG_CLOUDTRAIL_COVERAGE_BREAKS:-}
+  IG_KAFKA_ADDRESS: redpanda:9092
+  IG_CLICKHOUSE_HOST: clickhouse
+  IG_CLICKHOUSE_USER: identityguard
+  IG_CLICKHOUSE_PASSWORD: ${IG_CLICKHOUSE_PASSWORD:-ig-local-demo}
+  IG_TEMPORAL_ADDRESS: temporal:7233
+
+services:
+  console:
+    image: identityguard-local-console
+    environment:
+      IG_DATABASE: /app/data/demo.sqlite
+      IG_KAFKA_ADDRESS: redpanda:9092
+      IG_CLICKHOUSE_HOST: clickhouse
+      IG_CLICKHOUSE_HUNT: "1"
+      IG_CLICKHOUSE_READER_PASSWORD: ${IG_CLICKHOUSE_READER_PASSWORD:-ig-local-read}
+      IG_TEMPORAL_ADDRESS: temporal:7233
+    depends_on:
+      clickhouse-provision:
+        condition: service_completed_successfully
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v25.3.1
+    command:
+      - redpanda
+      - start
+      - --kafka-addr
+      - 0.0.0.0:9092
+      - --advertise-kafka-addr
+      - redpanda:9092
+      - --mode
+      - dev-container
+      - --smp
+      - "1"
+      - --memory
+      - 768M
+      - --set
+      - redpanda.auto_create_topics_enabled=true
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "info", "-X", "brokers=localhost:9092"]
+      interval: 5s
+      timeout: 4s
+      retries: 16
+    volumes:
+      - redpanda:/var/lib/redpanda/data
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    environment:
+      CLICKHOUSE_DB: identityguard
+      CLICKHOUSE_USER: identityguard
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+      CLICKHOUSE_PASSWORD: ${IG_CLICKHOUSE_PASSWORD:-ig-local-demo}
+    volumes:
+      - clickhouse:/var/lib/clickhouse
+      - ../../backend/clickhouse/migrations/001_events.sql:/docker-entrypoint-initdb.d/001_events.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "clickhouse-client --user identityguard --password \"$$CLICKHOUSE_PASSWORD\" --query 'SELECT count() FROM identityguard.events'"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+  clickhouse-provision:
+    image: clickhouse/clickhouse-server:24.8
+    entrypoint: ["sh", "-ec"]
+    command:
+      - >
+        exec clickhouse-client --host clickhouse --user identityguard
+        --password "$$WRITER_PASSWORD"
+        --param_reader_password "$$READER_PASSWORD"
+        --multiquery --queries-file /provision.sql
+    environment:
+      WRITER_PASSWORD: ${IG_CLICKHOUSE_PASSWORD:-ig-local-demo}
+      READER_PASSWORD: ${IG_CLICKHOUSE_READER_PASSWORD:-ig-local-read}
+    volumes:
+      - ./provision-clickhouse.sql:/provision.sql:ro
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+  temporal:
+    image: temporalio/temporal:1.5.0
+    command: ["server", "start-dev", "--ip", "0.0.0.0", "--headless", "--db-filename", "/tmp/identityguard-temporal.db"]
+    volumes:
+      - temporal:/tmp
+    healthcheck:
+      test: ["CMD", "temporal", "operator", "cluster", "health"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+  relay:
+    image: identityguard-local-console
+    command: ["python", "-m", "app.pipeline_bridge"]
+    environment: *bridge
+    depends_on:
+      console:
+        condition: service_healthy
+      redpanda:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    restart: on-failure
+    volumes:
+      - demo:/app/data
+  temporal-worker:
+    image: identityguard-local-console
+    command: ["python", "-m", "app.temporal_worker"]
+    environment: *bridge
+    depends_on:
+      console:
+        condition: service_healthy
+      temporal:
+        condition: service_healthy
+    restart: on-failure
+    volumes:
+      - demo:/app/data
+
+volumes:
+  redpanda:
+  clickhouse:
+  temporal:

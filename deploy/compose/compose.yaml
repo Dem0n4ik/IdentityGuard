@@ -1,0 +1,31 @@
+name: identityguard-local
+services:
+  console:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    ports:
+      - "127.0.0.1:${IG_PORT:-8000}:8000"
+    environment:
+      IG_SOURCE: demo
+      IG_ACCESS_KEY: "${IG_ACCESS_KEY:-}"
+      IG_REQUIRE_ACCESS: "${IG_REQUIRE_ACCESS:-0}"
+      IG_WORKSPACE_TOKEN: "${IG_WORKSPACE_TOKEN:-}"
+      IG_WEBHOOK_SECRET: "${IG_WEBHOOK_SECRET:-}"
+      IG_AI_MODEL: "${IG_AI_MODEL:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      IG_DATABASE: /app/data/demo.sqlite
+      IG_CLOUDTRAIL_COVERAGE_BREAKS: ${IG_CLOUDTRAIL_COVERAGE_BREAKS:-}
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: ["/tmp"]
+    volumes:
+      - demo:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/readyz', timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 8
+volumes:
+  demo:

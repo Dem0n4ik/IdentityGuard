@@ -1,0 +1,60 @@
+name: Local product checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: uv sync --locked
+      - run: uv run --locked ruff check backend scripts
+      - run: uv run --locked ruff format --check backend scripts
+      - run: uv run --locked mypy
+      - run: uv run --locked pytest -q
+      - run: PYTHONPATH=backend uv run --locked python scripts/export_contract.py --check
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run generate && git diff --exit-code
+        working-directory: frontend
+      - run: npm audit --audit-level=high
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - name: Start isolated demo and run browser tests
+        shell: bash
+        env:
+          PYTHONPATH: backend
+          IG_DATABASE: data/ci.sqlite
+        run: |
+          set -euo pipefail
+          uv run --locked python -m app.devdata seed --database "$IG_DATABASE"
+          uv run --locked python -m uvicorn --factory app.api:from_env --host 127.0.0.1 --port 8000 &
+          pid=$!
+          trap 'kill "$pid" 2>/dev/null || true' EXIT
+          curl --retry 15 --retry-delay 1 --retry-connrefused --fail http://127.0.0.1:8000/healthz
+          npm --prefix frontend run test:e2e
+      - run: docker compose -f deploy/compose/compose.yaml config -q
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: docker run --rm -v "$PWD:/repo:ro" zricethezav/gitleaks:v8.24.3 git --redact /repo

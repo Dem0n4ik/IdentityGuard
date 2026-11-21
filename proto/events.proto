@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package identityguard.events.v1;
+
+message NormalizedEvent {
+  string event_id = 1;
+  string account_id = 2;
+  string identity_id = 3;
+  int64 occurred_ms = 4;
+  string event_name = 5;
+  string event_source = 6;
+  string event_category = 7;
+  string aws_region = 8;
+}
