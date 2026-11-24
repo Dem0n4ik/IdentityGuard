@@ -72,6 +72,8 @@ terraform -chdir=deploy/terraform/staging plan
 
 ## Відтворення оцінювання моделі
 
+Числа магістерської роботи (таблиці 3.8-3.9, аналіз чутливості, незалежна перевірка) відтворюються з тегу `thesis-v1.0` за [інструкцією](docs/REPRODUCE.md): `make fetch-stratus`, `make thesis`, `make evaluate-independent`.
+
 `make evaluate` запускає еталонні синтетичні сценарії. `make evaluate-extended` додає по одній ризиковій дії до S1, S3 і S5 та записує окремий звіт. `make evaluate-independent` запускає перевірку на зафіксованому публічному наборі Ariel Cyber. [Еталонний прогін](reports/evaluation.md) · [Розширений прогін](reports/evaluation-extended.md) · [Незалежний прогін](reports/independent.md)
 
 Окремі команди відтворюють публічні журнали детонацій Stratus.

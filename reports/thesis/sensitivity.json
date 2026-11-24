@@ -1,0 +1,638 @@
+{
+ "base": {
+  "params": {},
+  "windows": 857,
+  "positive": 11,
+  "incident": {
+   "tp": 11,
+   "fp": 0,
+   "fn": 0,
+   "f1": 1.0
+  },
+  "high": {
+   "tp": 6,
+   "fp": 0,
+   "fn": 5,
+   "f1": 0.7058823529411765
+  },
+  "scenarios_detected": 9,
+  "scenarios": 9,
+  "latency_mean_min": 60.0,
+  "latency_max_min": 60.0,
+  "rare_fp": 0,
+  "rare_windows": 8,
+  "benign_max_R": 17.90724273789904,
+  "sum_R_normal": 1260.8311757438262,
+  "nonzero_normal": 150,
+  "thin_windows": 12,
+  "attack_R": [
+   25.7,
+   37.9,
+   41.3,
+   48.0,
+   49.4,
+   49.9,
+   51.0,
+   52.0,
+   52.1,
+   53.0,
+   59.2
+  ]
+ },
+ "window": [
+  {
+   "params": {
+    "window_min": 15
+   },
+   "windows": 2527,
+   "positive": 14,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 3,
+    "f1": 0.88
+   },
+   "high": {
+    "tp": 7,
+    "fp": 0,
+    "fn": 7,
+    "f1": 0.6666666666666666
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 15.0,
+   "latency_max_min": 15.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 2546.653387670379,
+   "nonzero_normal": 323,
+   "thin_windows": 17,
+   "attack_R": [
+    19.1,
+    22.2,
+    22.2,
+    25.7,
+    37.9,
+    42.5,
+    48.1,
+    49.4,
+    50.4,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  },
+  {
+   "params": {
+    "window_min": 30
+   },
+   "windows": 1571,
+   "positive": 12,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 1,
+    "f1": 0.9565217391304348
+   },
+   "high": {
+    "tp": 7,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7368421052631579
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 30.0,
+   "latency_max_min": 30.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1918.0614138825786,
+   "nonzero_normal": 233,
+   "thin_windows": 14,
+   "attack_R": [
+    20.6,
+    25.7,
+    37.9,
+    42.1,
+    48.0,
+    49.4,
+    50.4,
+    51.0,
+    52.1,
+    52.1,
+    53.0,
+    59.2
+   ]
+  }
+ ],
+ "days": [
+  {
+   "params": {
+    "days": 7
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1267.1541020954205,
+   "nonzero_normal": 154,
+   "thin_windows": 14,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    48.6,
+    49.4,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  },
+  {
+   "params": {
+    "days": 10
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1261.1897690543562,
+   "nonzero_normal": 152,
+   "thin_windows": 14,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.2,
+    49.4,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  }
+ ],
+ "s": [
+  {
+   "params": {
+    "s": 1
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1260.8311757438262,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.4,
+    49.9,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  },
+  {
+   "params": {
+    "s": 3
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1263.6726114736166,
+   "nonzero_normal": 151,
+   "thin_windows": 12,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.4,
+    49.9,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  },
+  {
+   "params": {
+    "s": 5
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1272.1969186629883,
+   "nonzero_normal": 154,
+   "thin_windows": 12,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.4,
+    49.9,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  }
+ ],
+ "thin": [
+  {
+   "params": {
+    "thin": 25
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1260.8311757438262,
+   "nonzero_normal": 150,
+   "thin_windows": 10,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.4,
+    49.9,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  },
+  {
+   "params": {
+    "thin": 100
+   },
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 6,
+    "fp": 0,
+    "fn": 5,
+    "f1": 0.7058823529411765
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 17.90724273789904,
+   "sum_R_normal": 1260.8311757438262,
+   "nonzero_normal": 150,
+   "thin_windows": 14,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    48.0,
+    49.4,
+    49.9,
+    51.0,
+    52.0,
+    52.1,
+    53.0,
+    59.2
+   ]
+  }
+ ],
+ "facts": {
+  "equal": {
+   "params": {},
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 7,
+    "f1": 0.5333333333333333
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 16.86914170961504,
+   "sum_R_normal": 1214.5445988933495,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    25.4,
+    39.4,
+    42.0,
+    46.5,
+    46.5,
+    48.0,
+    49.1,
+    49.7,
+    50.1,
+    50.2,
+    58.3
+   ]
+  },
+  "x0.5": {
+   "params": {},
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 10,
+    "fp": 0,
+    "fn": 1,
+    "f1": 0.9523809523809523
+   },
+   "high": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 9,
+    "f1": 0.3076923076923077
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 15.441752795724536,
+   "sum_R_normal": 1126.2161251512155,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    22.6,
+    36.9,
+    38.1,
+    40.9,
+    41.9,
+    42.0,
+    42.6,
+    44.4,
+    44.9,
+    48.8,
+    52.0
+   ]
+  },
+  "x1.5": {
+   "params": {},
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 9,
+    "fp": 0,
+    "fn": 2,
+    "f1": 0.9
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 20.37273268007355,
+   "sum_R_normal": 1395.446226336437,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    28.9,
+    39.0,
+    44.4,
+    54.0,
+    55.2,
+    56.2,
+    58.8,
+    59.3,
+    59.9,
+    61.6,
+    66.3
+   ]
+  },
+  "drop:no_mfa": {
+   "params": {},
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 8,
+    "f1": 0.42857142857142855
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 15.831040681331038,
+   "sum_R_normal": 1185.3124214221396,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    43.7,
+    44.8,
+    45.7,
+    46.1,
+    47.2,
+    48.0,
+    52.0,
+    52.0
+   ]
+  },
+  "drop:old_key": {
+   "params": {},
+   "windows": 857,
+   "positive": 11,
+   "incident": {
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "f1": 1.0
+   },
+   "high": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 8,
+    "f1": 0.42857142857142855
+   },
+   "scenarios_detected": 9,
+   "scenarios": 9,
+   "latency_mean_min": 60.0,
+   "latency_max_min": 60.0,
+   "rare_fp": 0,
+   "rare_windows": 8,
+   "benign_max_R": 16.60961645254404,
+   "sum_R_normal": 1213.631954292772,
+   "nonzero_normal": 150,
+   "thin_windows": 12,
+   "attack_R": [
+    25.7,
+    37.9,
+    41.3,
+    45.8,
+    46.7,
+    47.7,
+    48.0,
+    48.3,
+    49.4,
+    52.0,
+    54.7
+   ]
+  }
+ },
+ "ci95_fpr": [
+  0.0,
+  0.004350884961088097
+ ]
+}

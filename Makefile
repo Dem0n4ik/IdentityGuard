@@ -1,4 +1,4 @@
-.PHONY: up platform down devdata evaluate evaluate-extended evaluate-independent fetch-stratus replay-stratus replay-stratus-extended test
+.PHONY: up platform down devdata evaluate evaluate-extended evaluate-independent fetch-stratus replay-stratus replay-stratus-extended thesis test
 compose = docker compose -f deploy/compose/compose.yaml
 
 up:
@@ -30,6 +30,11 @@ replay-stratus:
 
 replay-stratus-extended:
 	PYTHONPATH=backend uv run --locked python -m app.stratus replay --rules config/detections/aws-sensitive-control-plane.yml --report reports/stratus-extended.md
+
+thesis:
+	PYTHONPATH=backend uv run --locked python scripts/thesis/table_3_8.py
+	PYTHONPATH=backend uv run --locked python scripts/thesis/table_3_9.py
+	PYTHONPATH=backend uv run --locked python scripts/thesis/sensitivity.py
 
 test:
 	uv run --locked ruff check backend scripts

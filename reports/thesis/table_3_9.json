@@ -1,0 +1,494 @@
+{
+ "original": {
+  "detected": 29,
+  "high": 7,
+  "ci95_detected": [
+   0.6397519838249748,
+   0.9180563602347911
+  ],
+  "fp": 0,
+  "negatives": 817,
+  "static_fp": 239,
+  "by_tactic": {
+   "initial-access": [
+    1,
+    1,
+    0
+   ],
+   "execution": [
+    4,
+    1,
+    0
+   ],
+   "persistence": [
+    10,
+    7,
+    2
+   ],
+   "privilege-escalation": [
+    1,
+    1,
+    1
+   ],
+   "defense-evasion": [
+    6,
+    6,
+    3
+   ],
+   "credential-access": [
+    5,
+    5,
+    0
+   ],
+   "discovery": [
+    1,
+    1,
+    0
+   ],
+   "lateral-movement": [
+    2,
+    2,
+    0
+   ],
+   "exfiltration": [
+    5,
+    4,
+    1
+   ],
+   "impact": [
+    1,
+    1,
+    0
+   ]
+  },
+  "fired": {
+   "geo": 36,
+   "ip": 36,
+   "seq": 35,
+   "vol": 11,
+   "secret": 4,
+   "priv": 19,
+   "time": 4,
+   "evasion": 6
+  },
+  "missed": [
+   "aws.execution.ec2-launch-unusual-instances",
+   "aws.execution.ec2-user-data",
+   "aws.execution.ssm-send-command",
+   "aws.exfiltration.ec2-share-ebs-volume",
+   "aws.persistence.lambda-backdoor-function",
+   "aws.persistence.lambda-layer-extension",
+   "aws.persistence.sts-federation-token"
+  ],
+  "risk": {
+   "aws.credential-access.ec2-get-password-data": 33.76,
+   "aws.credential-access.ec2-steal-instance-credentials": 38.4,
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets": 27.65,
+   "aws.credential-access.secretsmanager-retrieve-secrets": 34.24,
+   "aws.credential-access.ssm-retrieve-securestring-parameters": 28.25,
+   "aws.defense-evasion.cloudtrail-delete": 62.68,
+   "aws.defense-evasion.cloudtrail-event-selectors": 63.5,
+   "aws.defense-evasion.cloudtrail-stop": 40.7,
+   "aws.defense-evasion.dns-delete-logs": 60.24,
+   "aws.defense-evasion.organizations-leave": 40.7,
+   "aws.defense-evasion.vpc-remove-flow-logs": 46.4,
+   "aws.discovery.ec2-download-user-data": 36.53,
+   "aws.execution.ec2-launch-unusual-instances": 18.62,
+   "aws.execution.ec2-user-data": 24.66,
+   "aws.execution.ssm-send-command": 20.58,
+   "aws.execution.ssm-start-session": 28.67,
+   "aws.exfiltration.ec2-security-group-open-port-22-ingress": 51.64,
+   "aws.exfiltration.ec2-share-ami": 33.11,
+   "aws.exfiltration.ec2-share-ebs-snapshot": 49.0,
+   "aws.exfiltration.ec2-share-ebs-volume": 18.62,
+   "aws.exfiltration.rds-share-snapshot": 37.76,
+   "aws.impact.bedrock-invoke-model": 36.61,
+   "aws.initial-access.console-login-without-mfa": 33.11,
+   "aws.lateral-movement.ec2-instance-connect": 35.79,
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key": 33.11,
+   "aws.persistence.iam-backdoor-role": 50.98,
+   "aws.persistence.iam-backdoor-user": 54.71,
+   "aws.persistence.iam-create-admin-user": 33.11,
+   "aws.persistence.iam-create-backdoor-role": 49.0,
+   "aws.persistence.iam-create-user-login-profile": 34.09,
+   "aws.persistence.lambda-backdoor-function": 21.22,
+   "aws.persistence.lambda-layer-extension": 23.22,
+   "aws.persistence.lambda-overwrite-code": 33.11,
+   "aws.persistence.rolesanywhere-create-trust-anchor": 35.79,
+   "aws.persistence.sts-federation-token": 18.62,
+   "aws.privilege-escalation.iam-update-user-login-profile": 50.98
+  }
+ },
+ "original+rule": {
+  "detected": 36,
+  "high": 8,
+  "ci95_detected": [
+   0.902606244085508,
+   1.0
+  ],
+  "fp": 0,
+  "negatives": 817,
+  "static_fp": 239,
+  "by_tactic": {
+   "initial-access": [
+    1,
+    1,
+    0
+   ],
+   "execution": [
+    4,
+    4,
+    1
+   ],
+   "persistence": [
+    10,
+    10,
+    2
+   ],
+   "privilege-escalation": [
+    1,
+    1,
+    1
+   ],
+   "defense-evasion": [
+    6,
+    6,
+    3
+   ],
+   "credential-access": [
+    5,
+    5,
+    0
+   ],
+   "discovery": [
+    1,
+    1,
+    0
+   ],
+   "lateral-movement": [
+    2,
+    2,
+    0
+   ],
+   "exfiltration": [
+    5,
+    5,
+    1
+   ],
+   "impact": [
+    1,
+    1,
+    0
+   ]
+  },
+  "fired": {
+   "geo": 36,
+   "ip": 36,
+   "seq": 35,
+   "vol": 11,
+   "secret": 4,
+   "priv": 26,
+   "time": 4,
+   "evasion": 6
+  },
+  "missed": [],
+  "risk": {
+   "aws.credential-access.ec2-get-password-data": 33.76,
+   "aws.credential-access.ec2-steal-instance-credentials": 48.4,
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets": 27.65,
+   "aws.credential-access.secretsmanager-retrieve-secrets": 34.24,
+   "aws.credential-access.ssm-retrieve-securestring-parameters": 28.25,
+   "aws.defense-evasion.cloudtrail-delete": 62.68,
+   "aws.defense-evasion.cloudtrail-event-selectors": 63.5,
+   "aws.defense-evasion.cloudtrail-stop": 40.7,
+   "aws.defense-evasion.dns-delete-logs": 60.24,
+   "aws.defense-evasion.organizations-leave": 40.7,
+   "aws.defense-evasion.vpc-remove-flow-logs": 46.4,
+   "aws.discovery.ec2-download-user-data": 36.53,
+   "aws.execution.ec2-launch-unusual-instances": 33.11,
+   "aws.execution.ec2-user-data": 40.02,
+   "aws.execution.ssm-send-command": 35.07,
+   "aws.execution.ssm-start-session": 50.98,
+   "aws.exfiltration.ec2-security-group-open-port-22-ingress": 51.64,
+   "aws.exfiltration.ec2-share-ami": 33.11,
+   "aws.exfiltration.ec2-share-ebs-snapshot": 49.0,
+   "aws.exfiltration.ec2-share-ebs-volume": 33.11,
+   "aws.exfiltration.rds-share-snapshot": 37.76,
+   "aws.impact.bedrock-invoke-model": 36.61,
+   "aws.initial-access.console-login-without-mfa": 33.11,
+   "aws.lateral-movement.ec2-instance-connect": 37.93,
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key": 33.11,
+   "aws.persistence.iam-backdoor-role": 50.98,
+   "aws.persistence.iam-backdoor-user": 54.71,
+   "aws.persistence.iam-create-admin-user": 33.11,
+   "aws.persistence.iam-create-backdoor-role": 49.0,
+   "aws.persistence.iam-create-user-login-profile": 34.08,
+   "aws.persistence.lambda-backdoor-function": 37.74,
+   "aws.persistence.lambda-layer-extension": 33.22,
+   "aws.persistence.lambda-overwrite-code": 33.11,
+   "aws.persistence.rolesanywhere-create-trust-anchor": 37.93,
+   "aws.persistence.sts-federation-token": 33.11,
+   "aws.privilege-escalation.iam-update-user-login-profile": 50.98
+  }
+ },
+ "legit": {
+  "detected": 16,
+  "high": 0,
+  "ci95_detected": [
+   0.2793541919668473,
+   0.6190232059106164
+  ],
+  "fp": 0,
+  "negatives": 817,
+  "static_fp": 239,
+  "by_tactic": {
+   "initial-access": [
+    1,
+    0,
+    0
+   ],
+   "execution": [
+    4,
+    0,
+    0
+   ],
+   "persistence": [
+    10,
+    4,
+    0
+   ],
+   "privilege-escalation": [
+    1,
+    1,
+    0
+   ],
+   "defense-evasion": [
+    6,
+    6,
+    0
+   ],
+   "credential-access": [
+    5,
+    1,
+    0
+   ],
+   "discovery": [
+    1,
+    0,
+    0
+   ],
+   "lateral-movement": [
+    2,
+    1,
+    0
+   ],
+   "exfiltration": [
+    5,
+    3,
+    0
+   ],
+   "impact": [
+    1,
+    0,
+    0
+   ]
+  },
+  "fired": {
+   "seq": 35,
+   "vol": 10,
+   "secret": 4,
+   "geo": 1,
+   "priv": 19,
+   "time": 4,
+   "evasion": 6
+  },
+  "missed": [
+   "aws.credential-access.ec2-get-password-data",
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets",
+   "aws.credential-access.secretsmanager-retrieve-secrets",
+   "aws.credential-access.ssm-retrieve-securestring-parameters",
+   "aws.discovery.ec2-download-user-data",
+   "aws.execution.ec2-launch-unusual-instances",
+   "aws.execution.ec2-user-data",
+   "aws.execution.ssm-send-command",
+   "aws.execution.ssm-start-session",
+   "aws.exfiltration.ec2-share-ami",
+   "aws.exfiltration.ec2-share-ebs-volume",
+   "aws.impact.bedrock-invoke-model",
+   "aws.initial-access.console-login-without-mfa",
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key",
+   "aws.persistence.iam-create-admin-user",
+   "aws.persistence.iam-create-user-login-profile",
+   "aws.persistence.lambda-backdoor-function",
+   "aws.persistence.lambda-layer-extension",
+   "aws.persistence.lambda-overwrite-code",
+   "aws.persistence.sts-federation-token"
+  ],
+  "risk": {
+   "aws.credential-access.ec2-get-password-data": 22.84,
+   "aws.credential-access.ec2-steal-instance-credentials": 33.09,
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets": 18.07,
+   "aws.credential-access.secretsmanager-retrieve-secrets": 24.08,
+   "aws.credential-access.ssm-retrieve-securestring-parameters": 18.67,
+   "aws.defense-evasion.cloudtrail-delete": 47.93,
+   "aws.defense-evasion.cloudtrail-event-selectors": 48.55,
+   "aws.defense-evasion.cloudtrail-stop": 31.12,
+   "aws.defense-evasion.dns-delete-logs": 46.06,
+   "aws.defense-evasion.organizations-leave": 31.12,
+   "aws.defense-evasion.vpc-remove-flow-logs": 35.48,
+   "aws.discovery.ec2-download-user-data": 23.31,
+   "aws.execution.ec2-launch-unusual-instances": 9.03,
+   "aws.execution.ec2-user-data": 14.08,
+   "aws.execution.ssm-send-command": 11.0,
+   "aws.execution.ssm-start-session": 13.91,
+   "aws.exfiltration.ec2-security-group-open-port-22-ingress": 36.7,
+   "aws.exfiltration.ec2-share-ami": 23.53,
+   "aws.exfiltration.ec2-share-ebs-snapshot": 34.82,
+   "aws.exfiltration.ec2-share-ebs-volume": 9.03,
+   "aws.exfiltration.rds-share-snapshot": 26.82,
+   "aws.impact.bedrock-invoke-model": 23.17,
+   "aws.initial-access.console-login-without-mfa": 23.53,
+   "aws.lateral-movement.ec2-instance-connect": 26.21,
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key": 23.53,
+   "aws.persistence.iam-backdoor-role": 36.23,
+   "aws.persistence.iam-backdoor-user": 39.77,
+   "aws.persistence.iam-create-admin-user": 23.53,
+   "aws.persistence.iam-create-backdoor-role": 34.82,
+   "aws.persistence.iam-create-user-login-profile": 24.51,
+   "aws.persistence.lambda-backdoor-function": 10.3,
+   "aws.persistence.lambda-layer-extension": 10.0,
+   "aws.persistence.lambda-overwrite-code": 23.53,
+   "aws.persistence.rolesanywhere-create-trust-anchor": 26.21,
+   "aws.persistence.sts-federation-token": 9.03,
+   "aws.privilege-escalation.iam-update-user-login-profile": 36.23
+  }
+ },
+ "legit+rule": {
+  "detected": 20,
+  "high": 0,
+  "ci95_detected": [
+   0.3809767940893837,
+   0.7206458080331524
+  ],
+  "fp": 0,
+  "negatives": 817,
+  "static_fp": 239,
+  "by_tactic": {
+   "initial-access": [
+    1,
+    0,
+    0
+   ],
+   "execution": [
+    4,
+    3,
+    0
+   ],
+   "persistence": [
+    10,
+    5,
+    0
+   ],
+   "privilege-escalation": [
+    1,
+    1,
+    0
+   ],
+   "defense-evasion": [
+    6,
+    6,
+    0
+   ],
+   "credential-access": [
+    5,
+    1,
+    0
+   ],
+   "discovery": [
+    1,
+    0,
+    0
+   ],
+   "lateral-movement": [
+    2,
+    1,
+    0
+   ],
+   "exfiltration": [
+    5,
+    3,
+    0
+   ],
+   "impact": [
+    1,
+    0,
+    0
+   ]
+  },
+  "fired": {
+   "seq": 35,
+   "vol": 10,
+   "secret": 4,
+   "geo": 1,
+   "priv": 26,
+   "time": 4,
+   "evasion": 6
+  },
+  "missed": [
+   "aws.credential-access.ec2-get-password-data",
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets",
+   "aws.credential-access.secretsmanager-retrieve-secrets",
+   "aws.credential-access.ssm-retrieve-securestring-parameters",
+   "aws.discovery.ec2-download-user-data",
+   "aws.execution.ec2-launch-unusual-instances",
+   "aws.exfiltration.ec2-share-ami",
+   "aws.exfiltration.ec2-share-ebs-volume",
+   "aws.impact.bedrock-invoke-model",
+   "aws.initial-access.console-login-without-mfa",
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key",
+   "aws.persistence.iam-create-admin-user",
+   "aws.persistence.iam-create-user-login-profile",
+   "aws.persistence.lambda-layer-extension",
+   "aws.persistence.lambda-overwrite-code",
+   "aws.persistence.sts-federation-token"
+  ],
+  "risk": {
+   "aws.credential-access.ec2-get-password-data": 22.84,
+   "aws.credential-access.ec2-steal-instance-credentials": 43.09,
+   "aws.credential-access.secretsmanager-batch-retrieve-secrets": 18.07,
+   "aws.credential-access.secretsmanager-retrieve-secrets": 24.08,
+   "aws.credential-access.ssm-retrieve-securestring-parameters": 18.67,
+   "aws.defense-evasion.cloudtrail-delete": 47.93,
+   "aws.defense-evasion.cloudtrail-event-selectors": 48.55,
+   "aws.defense-evasion.cloudtrail-stop": 31.12,
+   "aws.defense-evasion.dns-delete-logs": 46.06,
+   "aws.defense-evasion.organizations-leave": 31.12,
+   "aws.defense-evasion.vpc-remove-flow-logs": 35.48,
+   "aws.discovery.ec2-download-user-data": 23.31,
+   "aws.execution.ec2-launch-unusual-instances": 23.53,
+   "aws.execution.ec2-user-data": 29.44,
+   "aws.execution.ssm-send-command": 25.49,
+   "aws.execution.ssm-start-session": 36.23,
+   "aws.exfiltration.ec2-security-group-open-port-22-ingress": 36.7,
+   "aws.exfiltration.ec2-share-ami": 23.53,
+   "aws.exfiltration.ec2-share-ebs-snapshot": 34.82,
+   "aws.exfiltration.ec2-share-ebs-volume": 23.53,
+   "aws.exfiltration.rds-share-snapshot": 26.82,
+   "aws.impact.bedrock-invoke-model": 23.17,
+   "aws.initial-access.console-login-without-mfa": 23.53,
+   "aws.lateral-movement.ec2-instance-connect": 27.78,
+   "aws.lateral-movement.ec2-serial-console-send-ssh-public-key": 23.53,
+   "aws.persistence.iam-backdoor-role": 36.23,
+   "aws.persistence.iam-backdoor-user": 39.77,
+   "aws.persistence.iam-create-admin-user": 23.53,
+   "aws.persistence.iam-create-backdoor-role": 34.82,
+   "aws.persistence.iam-create-user-login-profile": 24.51,
+   "aws.persistence.lambda-backdoor-function": 26.82,
+   "aws.persistence.lambda-layer-extension": 20.0,
+   "aws.persistence.lambda-overwrite-code": 23.53,
+   "aws.persistence.rolesanywhere-create-trust-anchor": 27.78,
+   "aws.persistence.sts-federation-token": 23.53,
+   "aws.privilege-escalation.iam-update-user-login-profile": 36.23
+  }
+ }
+}
